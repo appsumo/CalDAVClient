@@ -45,13 +45,15 @@ final class CalendarQueryFilter
      * @param bool $get_calendar_data
      * @param DateTime $from
      * @param DateTime $to
+     * @param bool $expand
      */
-    public function __construct($get_etags = true, $get_calendar_data = false, DateTime $from = null,  DateTime $to = null)
+    public function __construct($get_etags = true, $get_calendar_data = false, DateTime $from = null,  DateTime $to = null, bool $expand = false)
     {
         $this->get_etags         = $get_etags;
         $this->get_calendar_data = $get_calendar_data;
         $this->from              = $from;
         $this->to                = $to;
+        $this->expand            = $expand;
 
         if(!is_null($this->from) && !is_null($this->to) && $this->from > $this->to)
             throw new \InvalidArgumentException("from should be lower than to param");
@@ -87,6 +89,15 @@ final class CalendarQueryFilter
     public function getFrom()
     {
         return $this->from;
+    }
+
+
+    /**
+     * @return Boolean
+     */
+    public function getExpand()
+    {
+        return $this->expand;
     }
 
 }
