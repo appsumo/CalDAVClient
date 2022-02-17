@@ -64,6 +64,17 @@ class CalendarQueryRequest implements IAbstractWebDAVRequest
 
         if($this->filter->useGetCalendarData()){
             $props['{urn:ietf:params:xml:ns:caldav}calendar-data'] = '';
+
+            if ($this->filter->getExpand() && $this->filter->getFrom() && $this->filter->getTo()) {
+                $props['{urn:ietf:params:xml:ns:caldav}calendar-data'] = [
+                    '{urn:ietf:params:xml:ns:caldav}expand' => [
+                        'attributes' =>[
+                            'start' => $this->formatTimestamp($this->filter->getFrom()),
+                            'end' => $this->formatTimestamp($this->filter->getTo()),
+                        ],
+                    ],
+                ];
+            }
         }
 
         if ($this->filter->getFrom() || $this->filter->getTo()) {
@@ -95,6 +106,7 @@ class CalendarQueryRequest implements IAbstractWebDAVRequest
             ],
             '{urn:ietf:params:xml:ns:caldav}filter' => $filter
         ];
+
         return $service->write('{urn:ietf:params:xml:ns:caldav}calendar-query', $nodes);
     }
 }
