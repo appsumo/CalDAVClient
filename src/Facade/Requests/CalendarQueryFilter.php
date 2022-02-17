@@ -40,6 +40,11 @@ final class CalendarQueryFilter
     private $from;
 
     /**
+     * @var Boolean
+     */
+    private $expand;
+
+    /**
      * CalendarQueryFilter constructor.
      * @param bool $get_etags
      * @param bool $get_calendar_data
