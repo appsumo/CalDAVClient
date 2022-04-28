@@ -96,7 +96,7 @@ final class EventRequestVO
      */
     public function __construct
     (
-        $prod_id,
+        $prod_id = null,
         $title,
         $description,
         $summary,
@@ -110,7 +110,7 @@ final class EventRequestVO
     )
     {
         $this->prod_id         = $prod_id;
-        $this->uid             = md5(uniqid(mt_rand(), true));
+        $this->uid             = $prod_id ?? md5(uniqid(mt_rand(), true));
         $this->title           = $title;
         $this->description     = $description;
         $this->summary         = $summary;
